@@ -13,6 +13,9 @@ dependencies:
 
   cupertino_icons: ^1.0.6
 
+  #System Features
+  auto_injector: ^2.0.4
+
   #Cache
   shared_preferences: ^2.2.3
 
