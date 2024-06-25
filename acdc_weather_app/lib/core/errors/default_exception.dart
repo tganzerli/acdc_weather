@@ -22,3 +22,10 @@ class HttpException extends BaseException {
     super.stackTracing,
   });
 }
+
+class AdapterException extends BaseException {
+  const AdapterException({
+    required super.message,
+    super.stackTracing,
+  });
+}

@@ -5,12 +5,14 @@ import 'package:acdc_weather_app/core/services/client/i_rest_client.dart';
 import 'package:auto_injector/auto_injector.dart';
 
 export 'contracts/contracts.dart';
+export 'entites/entity.dart';
 export 'errors/errors.dart';
 export 'services/cache/cache.dart';
 export 'services/client/client.dart';
 export 'types/types.dart';
 
 final coreModule = AutoInjector(
+  tag: 'coreModule',
   on: (injector) {
     injector.addSingleton<ICache>(SharedPreferencesImpl.new);
     injector.add<RestClient>(RestClientDioImpl.new);
