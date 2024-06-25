@@ -1,6 +1,6 @@
 import 'package:acdc_weather_app/core/core.dart';
-import 'package:acdc_weather_app/features/show_schedule/domain/repositories/show_schedule_repository_interface.dart';
-import 'package:acdc_weather_app/features/show_schedule/domain/usecases/get_shows_usecase.dart';
+import 'package:acdc_weather_app/app/features/show_schedule/domain/repositories/show_schedule_repository_interface.dart';
+import 'package:acdc_weather_app/app/features/show_schedule/domain/usecases/get_shows_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,15 +1,14 @@
 import 'package:acdc_weather_app/core/core.dart';
 
-class RestClientException extends BaseException
+class RestClientException extends HttpException
     implements RestClientHttpMessage {
   final dynamic data;
-  final int? statusCode;
   final dynamic error;
   final RestClientResponse? response;
 
   RestClientException({
     required super.message,
-    this.statusCode,
+    super.statusCode = 0,
     this.data,
     this.response,
     required this.error,

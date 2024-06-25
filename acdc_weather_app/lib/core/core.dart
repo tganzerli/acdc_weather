@@ -5,6 +5,7 @@ import 'package:acdc_weather_app/core/services/client/i_rest_client.dart';
 import 'package:auto_injector/auto_injector.dart';
 
 export 'contracts/contracts.dart';
+export 'enums/enums.dart';
 export 'entites/entity.dart';
 export 'errors/errors.dart';
 export 'services/cache/cache.dart';

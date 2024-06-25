@@ -10,7 +10,7 @@ class DioAdapter {
       response: dioException.response == null
           ? null
           : toClientResponse(dioException.response!),
-      statusCode: dioException.response?.statusCode,
+      statusCode: dioException.response?.statusCode ?? 0,
     );
   }
 
