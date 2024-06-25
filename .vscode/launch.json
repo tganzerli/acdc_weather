@@ -1,0 +1,48 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "acdc_weather_app",
+            "cwd": "acdc_weather_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "acdc_weather_app (profile mode)",
+            "cwd": "acdc_weather_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "acdc_weather_app (release mode)",
+            "cwd": "acdc_weather_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "back_in_black",
+            "cwd": "back_in_black",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "back_in_black (profile mode)",
+            "cwd": "back_in_black",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "back_in_black (release mode)",
+            "cwd": "back_in_black",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

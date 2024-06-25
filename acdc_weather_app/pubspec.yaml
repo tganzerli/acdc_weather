@@ -22,6 +22,10 @@ dependencies:
   #HTTP requests
   dio: ^5.4.3+1
 
+  #Packages
+  back_in_black:
+    path: ../back_in_black
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
