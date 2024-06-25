@@ -1,7 +1,5 @@
 library back_in_black;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/components/components.dart';
+export 'src/elements/elements.dart';
+export 'src/themes/theme.dart';
