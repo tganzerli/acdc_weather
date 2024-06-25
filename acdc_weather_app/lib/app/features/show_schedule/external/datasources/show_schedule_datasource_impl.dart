@@ -1,5 +1,5 @@
 import 'package:acdc_weather_app/core/core.dart';
-import 'package:acdc_weather_app/features/show_schedule/infra/datasources/show_schedule_datasource_interface.dart';
+import 'package:acdc_weather_app/app/features/show_schedule/infra/datasources/show_schedule_datasource_interface.dart';
 
 class ShowScheduleDataSourceImpl implements ShowScheduleDataSource {
   @override
