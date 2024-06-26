@@ -57,28 +57,12 @@ class WeatherForecastRepositoryImpl extends WeatherForecastRepository {
   }
 
   @override
-  Future<Output<bool>> saveShowWeatherInCache(ShowWeatherEntity weather) async {
-    List<ShowWeatherEntity> showsForecast = [];
-
+  Future<Output<bool>> saveShowWeatherInCache(
+      List<ShowWeatherEntity> weathers) async {
     try {
-      final List<Map<String, dynamic>> forecastResponse =
-          await cache.getData('showsForecast');
-      showsForecast = forecastResponse
-          .map((map) => ShowWeatherEntity.fromMap(map))
-          .toList();
-    } catch (e) {
-      print(e);
-    }
-
-    try {
-      showsForecast
-          .removeWhere((forecast) => forecast.show.city == weather.show.city);
-
-      showsForecast.add(weather);
-
       CacheParams params = CacheParams(
           key: 'showsForecast',
-          value: showsForecast.map((forecast) => forecast.toMap()).toList());
+          value: weathers.map((forecast) => forecast.toMap()).toList());
 
       final saveResponse = await cache.setData(params: params);
 

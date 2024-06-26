@@ -1,6 +1,6 @@
-import 'package:acdc_weather_app/core/core.dart';
 import 'package:acdc_weather_app/app/features/weather_forecast/domain/repositories/weather_repository_interface.dart';
-import 'package:acdc_weather_app/app/features/weather_forecast/domain/usecases/get_weather_usecase.dart';
+import 'package:acdc_weather_app/app/features/weather_forecast/domain/usecases/get_external_weather_usecase.dart';
+import 'package:acdc_weather_app/core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -9,7 +9,7 @@ class MockWeatherForecastRepository extends Mock
 
 void main() {
   late WeatherForecastRepository weatherForecastRepository;
-  late GetWeatherUsecase getWeatherUsecase;
+  late GetExternalWeatherUsecase getExternalWeatherUsecase;
 
   ShowEntity show =
       ShowEntity('', city: 'city', country: 'country', date: DateTime.now());
@@ -20,10 +20,11 @@ void main() {
   setUp(
     () {
       weatherForecastRepository = MockWeatherForecastRepository();
-      getWeatherUsecase = GetWeatherUsecaseImpl(
+      getExternalWeatherUsecase = GetExternalWeatherUsecaseImpl(
           weatherForecastRepository: weatherForecastRepository);
 
       registerFallbackValue(show);
+      registerFallbackValue([showWeather]);
     },
   );
 
@@ -33,43 +34,34 @@ void main() {
     ).thenAnswer((_) => Future(() => right(showWeather)));
 
     when(
-      () => weatherForecastRepository.saveShowWeatherInCache(showWeather),
+      () => weatherForecastRepository.deleteShowsWeatherInCache(),
     ).thenAnswer((_) => Future(() => right(true)));
 
-    final showsResponse = await getWeatherUsecase(show);
+    when(
+      () => weatherForecastRepository
+          .saveShowWeatherInCache(any<List<ShowWeatherEntity>>()),
+    ).thenAnswer((_) => Future(() => right(true)));
+
+    final showsResponse = await getExternalWeatherUsecase([show]);
 
     expect(showsResponse.isRight, true);
   });
 
-  test('Get weather from cache', () async {
-    when(
-      () => weatherForecastRepository.getShowWeather(any<ShowEntity>()),
-    ).thenAnswer((_) => Future(
-        () => left(const HttpException(message: 'Error', statusCode: 500))));
-
-    when(
-      () => weatherForecastRepository.getShowWeatherInCache(any<ShowEntity>()),
-    ).thenAnswer((_) => Future(() => right(showWeather)));
-
-    final showsResponse = await getWeatherUsecase(show);
-
-    expect(showsResponse.isRight, true);
-  });
-
-  test('Error from both methods', () async {
-    when(
-      () => weatherForecastRepository.getShowWeather(any<ShowEntity>()),
-    ).thenAnswer((_) => Future(
-        () => left(const HttpException(message: 'Error', statusCode: 500))));
-
+  test('No weather forecast in cache', () async {
     when(
       () => weatherForecastRepository.getShowWeather(any<ShowEntity>()),
     ).thenAnswer((_) => Future(() => left(const DefaultException(
           message: 'Error',
         ))));
 
-    final showsResponse = await getWeatherUsecase(show);
+    final showsResponse = await getExternalWeatherUsecase([show]);
 
     expect(showsResponse.isRight, false);
+
+    late BaseException exception;
+    showsResponse.fold((l) => exception = l, (r) => null);
+
+    expect(exception, isA<DefaultException>());
+    expect(exception.message, 'Unable to get weather forecast from API');
   });
 }

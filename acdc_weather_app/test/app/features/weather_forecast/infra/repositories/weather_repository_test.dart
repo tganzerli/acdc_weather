@@ -188,20 +188,8 @@ void main() {
         () => cache.setData(params: any<CacheParams>(named: 'params')),
       ).thenAnswer((_) => Future(() => true));
 
-      final weatherResponse = await weatherForecastRepository
-          .saveShowWeatherInCache(showsWeather.first);
-
-      expect(weatherResponse.isRight, true);
-    });
-
-    test('Save weather from cache when weather does not exist in cache',
-        () async {
-      when(
-        () => cache.setData(params: any<CacheParams>(named: 'params')),
-      ).thenAnswer((_) => Future(() => true));
-
-      final weatherResponse = await weatherForecastRepository
-          .saveShowWeatherInCache(showsWeather.first);
+      final weatherResponse =
+          await weatherForecastRepository.saveShowWeatherInCache(showsWeather);
 
       expect(weatherResponse.isRight, true);
     });
@@ -216,8 +204,8 @@ void main() {
         message: 'Failed to save data for key: showsForecast',
       ));
 
-      final weatherResponse = await weatherForecastRepository
-          .saveShowWeatherInCache(showsWeather.first);
+      final weatherResponse =
+          await weatherForecastRepository.saveShowWeatherInCache(showsWeather);
 
       expect(weatherResponse.isRight, false);
 
@@ -238,8 +226,61 @@ void main() {
         () => cache.setData(params: any<CacheParams>(named: 'params')),
       ).thenThrow('exception');
 
-      final weatherResponse = await weatherForecastRepository
-          .saveShowWeatherInCache(showsWeather.first);
+      final weatherResponse =
+          await weatherForecastRepository.saveShowWeatherInCache(showsWeather);
+
+      expect(weatherResponse.isRight, false);
+
+      late BaseException exception;
+      weatherResponse.fold(
+        (l) => exception = l,
+        (r) => null,
+      );
+
+      expect(exception, isA<DefaultException>());
+    });
+  });
+
+  group('deleteShowsWeatherInCache function', () {
+    test('Delete weather from cache', () async {
+      when(
+        () => cache.removeData('showsForecast'),
+      ).thenAnswer((_) => Future(() => true));
+
+      final weatherResponse =
+          await weatherForecastRepository.deleteShowsWeatherInCache();
+
+      expect(weatherResponse.isRight, true);
+    });
+
+    test('exception to delete in cache', () async {
+      when(
+        () => cache.removeData('showsForecast'),
+      ).thenThrow(const CacheException(
+        message: 'Failed to delete data for key: showsForecast',
+      ));
+
+      final weatherResponse =
+          await weatherForecastRepository.deleteShowsWeatherInCache();
+
+      expect(weatherResponse.isRight, false);
+
+      late BaseException exception;
+      weatherResponse.fold(
+        (l) => exception = l,
+        (r) => null,
+      );
+
+      expect(exception, isA<CacheException>());
+    });
+
+    test('Unmapped exception', () async {
+      when(
+        () => cache.removeData('showsForecast'),
+      ).thenThrow('exception');
+
+      final weatherResponse =
+          await weatherForecastRepository.deleteShowsWeatherInCache();
 
       expect(weatherResponse.isRight, false);
 
