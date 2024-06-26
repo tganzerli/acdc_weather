@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:acdc_weather_app/core/core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesImpl implements ICache {
+class SharedPreferencesImpl implements Cache {
   @override
   Future<dynamic> getData(String key) async {
     final prefs = await SharedPreferences.getInstance();

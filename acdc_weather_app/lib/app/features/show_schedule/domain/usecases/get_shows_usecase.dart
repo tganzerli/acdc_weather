@@ -1,6 +1,6 @@
 import 'package:acdc_weather_app/core/core.dart';
 
-import '../repositories/show_schedule_repository_interface.dart';
+import '../repositories/show_schedule_repository.dart';
 
 abstract class GetShowsUsecase {
   Future<Output<List<ShowEntity>>> call();

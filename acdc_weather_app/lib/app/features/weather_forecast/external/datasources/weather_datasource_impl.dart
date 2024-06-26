@@ -1,5 +1,5 @@
 import 'package:acdc_weather_app/core/core.dart';
-import 'package:acdc_weather_app/app/features/weather_forecast/infra/datasources/weather_datasource_interface.dart';
+import 'package:acdc_weather_app/app/features/weather_forecast/infra/datasources/weather_datasource.dart';
 
 class WeatherForecastDataSourceImpl implements WeatherForecastDataSource {
   final RestClient restClient;

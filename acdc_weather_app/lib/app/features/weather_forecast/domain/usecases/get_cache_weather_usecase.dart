@@ -1,6 +1,6 @@
 import 'package:acdc_weather_app/core/core.dart';
 
-import '../repositories/weather_repository_interface.dart';
+import '../repositories/weather_repository.dart';
 
 abstract class GetCacheWeatherUsecase {
   Future<Output<List<ShowWeatherEntity>>> call(List<ShowEntity> shows);

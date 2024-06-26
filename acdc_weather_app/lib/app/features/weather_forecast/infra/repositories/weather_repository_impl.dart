@@ -1,10 +1,10 @@
 import 'package:acdc_weather_app/core/core.dart';
-import 'package:acdc_weather_app/app/features/weather_forecast/domain/repositories/weather_repository_interface.dart';
+import 'package:acdc_weather_app/app/features/weather_forecast/domain/repositories/weather_repository.dart';
 import 'package:acdc_weather_app/app/features/weather_forecast/infra/adapters/weather_entity_adapter.dart';
-import 'package:acdc_weather_app/app/features/weather_forecast/infra/datasources/weather_datasource_interface.dart';
+import 'package:acdc_weather_app/app/features/weather_forecast/infra/datasources/weather_datasource.dart';
 
 class WeatherForecastRepositoryImpl extends WeatherForecastRepository {
-  final ICache cache;
+  final Cache cache;
   final WeatherForecastDataSource weatherForecastDataSource;
   WeatherForecastRepositoryImpl({
     required this.cache,

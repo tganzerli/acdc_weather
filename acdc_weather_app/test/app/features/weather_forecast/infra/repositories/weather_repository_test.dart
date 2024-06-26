@@ -1,20 +1,20 @@
 import 'package:acdc_weather_app/core/core.dart';
-import 'package:acdc_weather_app/app/features/weather_forecast/domain/repositories/weather_repository_interface.dart';
-import 'package:acdc_weather_app/app/features/weather_forecast/infra/datasources/weather_datasource_interface.dart';
-import 'package:acdc_weather_app/app/features/weather_forecast/infra/repositories/weather_repository.dart';
+import 'package:acdc_weather_app/app/features/weather_forecast/domain/repositories/weather_repository.dart';
+import 'package:acdc_weather_app/app/features/weather_forecast/infra/datasources/weather_datasource.dart';
+import 'package:acdc_weather_app/app/features/weather_forecast/infra/repositories/weather_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'moks.dart';
 
-class MockICache extends Mock implements ICache {}
+class MockCache extends Mock implements Cache {}
 
 class MpckWeatherForecastDataSource extends Mock
     implements WeatherForecastDataSource {}
 
 void main() {
   final WeatherMocks mock = WeatherMocks();
-  late ICache cache;
+  late Cache cache;
   late WeatherForecastDataSource weatherForecastDataSource;
   late WeatherForecastRepository weatherForecastRepository;
 
@@ -42,7 +42,7 @@ void main() {
 
   setUp(
     () {
-      cache = MockICache();
+      cache = MockCache();
       weatherForecastDataSource = MpckWeatherForecastDataSource();
       weatherForecastRepository = WeatherForecastRepositoryImpl(
           cache: cache, weatherForecastDataSource: weatherForecastDataSource);

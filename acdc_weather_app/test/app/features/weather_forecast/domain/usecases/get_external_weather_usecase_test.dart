@@ -1,4 +1,4 @@
-import 'package:acdc_weather_app/app/features/weather_forecast/domain/repositories/weather_repository_interface.dart';
+import 'package:acdc_weather_app/app/features/weather_forecast/domain/repositories/weather_repository.dart';
 import 'package:acdc_weather_app/app/features/weather_forecast/domain/usecases/get_external_weather_usecase.dart';
 import 'package:acdc_weather_app/core/core.dart';
 import 'package:flutter_test/flutter_test.dart';

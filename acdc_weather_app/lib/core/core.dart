@@ -1,7 +1,7 @@
 import 'package:acdc_weather_app/core/services/cache/i_cache.dart';
 import 'package:acdc_weather_app/core/services/cache/shared_preferences_impl.dart';
 import 'package:acdc_weather_app/core/services/client/dio/dio_impl.dart';
-import 'package:acdc_weather_app/core/services/client/i_rest_client.dart';
+import 'package:acdc_weather_app/core/services/client/rest_client.dart';
 import 'package:auto_injector/auto_injector.dart';
 import 'package:dio/dio.dart';
 
@@ -18,7 +18,7 @@ export 'types/types.dart';
 final coreModule = AutoInjector(
   tag: 'coreModule',
   on: (injector) {
-    injector.addSingleton<ICache>(SharedPreferencesImpl.new);
+    injector.addSingleton<Cache>(SharedPreferencesImpl.new);
     injector.add<Dio>(DioFactory.dio);
     injector.add<RestClient>(RestClientDioImpl.new);
   },

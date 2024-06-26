@@ -1,17 +1,17 @@
 import 'package:acdc_weather_app/core/core.dart';
-import 'package:acdc_weather_app/app/features/show_schedule/domain/repositories/show_schedule_repository_interface.dart';
-import 'package:acdc_weather_app/app/features/show_schedule/infra/datasources/show_schedule_datasource_interface.dart';
-import 'package:acdc_weather_app/app/features/show_schedule/infra/repositories/show_schedule_repository.dart';
+import 'package:acdc_weather_app/app/features/show_schedule/domain/repositories/show_schedule_repository.dart';
+import 'package:acdc_weather_app/app/features/show_schedule/infra/datasources/show_schedule_datasource.dart';
+import 'package:acdc_weather_app/app/features/show_schedule/infra/repositories/show_schedule_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockICache extends Mock implements ICache {}
+class MockCache extends Mock implements Cache {}
 
 class MockShowScheduleDataSource extends Mock
     implements ShowScheduleDataSource {}
 
 void main() {
-  late ICache cache;
+  late Cache cache;
   late ShowScheduleDataSource showScheduleDataSource;
   late ShowScheduleRepository showScheduleRepository;
 
@@ -22,7 +22,7 @@ void main() {
 
   setUp(
     () {
-      cache = MockICache();
+      cache = MockCache();
       showScheduleDataSource = MockShowScheduleDataSource();
       showScheduleRepository = ShowScheduleRepositoryImpl(
           cache: cache, showScheduleDataSource: showScheduleDataSource);

@@ -1,4 +1,4 @@
-import 'package:acdc_weather_app/app/widget/weather_icon.dart';
+import 'package:acdc_weather_app/app/widget/weather_icon_widget.dart';
 import 'package:acdc_weather_app/core/core.dart';
 import 'package:back_in_black/back_in_black.dart';
 import 'package:flutter/material.dart';
