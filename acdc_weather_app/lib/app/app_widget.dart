@@ -15,7 +15,7 @@ class AppWidget extends StatelessWidget {
       routes: {
         '/': (context) => const SplashPage(),
         '/home': (context) => const HomePage(),
-        '/weatherDetai': (context) => const WeatherDetailPage(),
+        '/weatherDetai': (context) => WeatherDetailPage(),
       },
     );
   }

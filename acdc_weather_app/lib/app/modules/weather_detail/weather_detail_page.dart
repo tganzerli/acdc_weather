@@ -1,8 +1,15 @@
+import 'package:acdc_weather_app/app/widget/weather_icon.dart';
+import 'package:acdc_weather_app/core/core.dart';
 import 'package:back_in_black/back_in_black.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class WeatherDetailPage extends StatefulWidget {
-  const WeatherDetailPage({super.key});
+  //final ShowWeatherEntity showWeatherEntity;
+  const WeatherDetailPage({
+    super.key,
+    //required this.showWeatherEntity,
+  });
 
   @override
   State<WeatherDetailPage> createState() => _WeatherDetailPageState();
@@ -11,8 +18,16 @@ class WeatherDetailPage extends StatefulWidget {
 class _WeatherDetailPageState extends State<WeatherDetailPage> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    final arguments =
+        (ModalRoute.of(context)?.settings.arguments) as ShowWeatherEntity;
     final text = Theme.of(context).textTheme;
     final colors = BackColors.of(context);
+
+    List<WeatherEntity> forecast = arguments.forecast;
+    forecast
+        .removeWhere((weather) => weather.weatherDate.isBefore(DateTime.now()));
+    forecast.sort((a, b) => a.weatherDate.compareTo(b.weatherDate));
     return Scaffold(
       backgroundColor: colors.darkBG,
       appBar: AppBar(
@@ -26,7 +41,7 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
           ),
         ),
         title: Text(
-          'Silverstone',
+          arguments.show.city,
           style: text.displayMedium,
         ),
       ),
@@ -43,25 +58,25 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                   height: 30,
                 ),
                 Text(
-                  '9˚',
+                  '${forecast.first.temperature.toInt()}˚',
                   style: text.displayLarge,
                 ),
                 Text(
-                  'clear sky',
-                  style: text.headlineLarge,
+                  forecast.first.weatherDescription,
+                  style: text.headlineMedium,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'H: 13˚',
+                      'H: ${forecast.first.temperatureMax.toInt()}˚',
                       style: text.headlineSmall,
                     ),
                     const SizedBox(
                       width: 5,
                     ),
                     Text(
-                      'L: 3˚',
+                      'L: ${forecast.first.temperatureMin.toInt()}˚',
                       style: text.headlineSmall,
                     ),
                   ],
@@ -73,13 +88,14 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                   width: MediaQuery.of(context).size.width,
                   height: 170,
                   child: ListView.separated(
-                    itemCount: 9,
+                    itemCount: forecast.length,
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     separatorBuilder: (context, index) {
                       return const SizedBox(width: 12);
                     },
                     itemBuilder: (context, index) {
+                      final weather = forecast[index];
                       return Container(
                         width: 80,
                         height: 160,
@@ -92,19 +108,20 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              '14',
+                              weather.weatherDate.hour.toString(),
                               style: text.headlineSmall!
                                   .copyWith(fontWeight: FontWeight.w800),
                             ),
                             Text(
-                              '14/06',
+                              '${weather.weatherDate.day}/${weather.weatherDate.month}',
                               style: text.bodyMedium,
                             ),
-                            const BackIcons.weatherClear(
-                              width: 60,
+                            WeatherIcon(
+                              weather: weather.weather,
+                              height: 60,
                             ),
                             Text(
-                              '24˚',
+                              '${weather.temperature.toInt()}˚',
                               style: text.headlineSmall!
                                   .copyWith(fontWeight: FontWeight.w800),
                             ),
@@ -134,7 +151,8 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                               width: MediaQuery.of(context).size.width / 2 - 40,
                             ),
                             RotationTransition(
-                              turns: const AlwaysStoppedAnimation(98 / 360),
+                              turns: AlwaysStoppedAnimation(
+                                  forecast.first.windDeg / 360),
                               child: BackImages.arrow(
                                 height:
                                     MediaQuery.of(context).size.width / 2 - 40,
@@ -144,7 +162,7 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '13',
+                                  forecast.first.windSpeed.toString(),
                                   style: text.headlineMedium!
                                       .copyWith(fontWeight: FontWeight.w800),
                                 ),
@@ -177,7 +195,7 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                                   Icons.wb_twilight,
                                   color: colors.primary,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Text(
@@ -188,7 +206,7 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                               ],
                             ),
                             Text(
-                              '5:43',
+                              '${forecast.first.sunrise.toUtc().add(Duration(seconds: forecast.first.timezone)).hour}:${forecast.first.sunrise.toUtc().add(Duration(seconds: forecast.first.timezone)).minute}',
                               style: text.displayMedium,
                             ),
                             Row(
@@ -199,11 +217,11 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                                   'Sunset:',
                                   style: text.titleMedium,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Text(
-                                  '17:21',
+                                  '${forecast.first.sunset.toUtc().add(Duration(seconds: forecast.first.timezone)).hour}:${forecast.first.sunset.toUtc().add(Duration(seconds: forecast.first.timezone)).minute}',
                                   style: text.titleMedium,
                                 ),
                               ],

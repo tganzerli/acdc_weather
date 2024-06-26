@@ -3,8 +3,11 @@ import 'package:acdc_weather_app/core/services/cache/shared_preferences_impl.dar
 import 'package:acdc_weather_app/core/services/client/dio/dio_impl.dart';
 import 'package:acdc_weather_app/core/services/client/i_rest_client.dart';
 import 'package:auto_injector/auto_injector.dart';
+import 'package:dio/dio.dart';
 
 export 'contracts/contracts.dart';
+export 'controllers/base_state.dart';
+export 'controllers/controllers.dart';
 export 'enums/enums.dart';
 export 'entites/entity.dart';
 export 'errors/errors.dart';
@@ -16,6 +19,7 @@ final coreModule = AutoInjector(
   tag: 'coreModule',
   on: (injector) {
     injector.addSingleton<ICache>(SharedPreferencesImpl.new);
+    injector.add<Dio>(DioFactory.dio);
     injector.add<RestClient>(RestClientDioImpl.new);
   },
 );
