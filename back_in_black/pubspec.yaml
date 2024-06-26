@@ -11,7 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   
-  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -22,4 +21,52 @@ dev_dependencies:
 flutter:
   assets:
     - assets/icons/
+    - assets/images/
     - assets/logos/
+  
+  fonts:
+    - family: SofiaPro
+      fonts:
+        - asset: lib/fonts/sofia-pro-regular.ttf
+        - asset: lib/fonts/sofia-pro-regular-italic.ttf
+          style: italic
+        - asset: lib/fonts/sofia-pro-ultra-light.ttf
+          weight: 100
+        - asset: lib/fonts/sofia-pro-ultra-light-italic.ttf
+          weight: 100
+          style: italic
+        - asset: lib/fonts/sofia-pro-extra-light.ttf
+          weight: 200
+        - asset: lib/fonts/sofia-pro-extra-light-italic.ttf
+          weight: 200
+          style: italic
+        - asset: lib/fonts/sofia-pro-light.ttf
+          weight: 300
+        - asset: lib/fonts/sofia-pro-light-italic.ttf
+          weight: 300
+          style: italic
+        - asset: lib/fonts/sofia-pro-regular.ttf
+          weight: 400
+        - asset: lib/fonts/sofia-pro-regular-italic.ttf
+          weight: 400
+          style: italic
+        - asset: lib/fonts/sofia-pro-medium.ttf
+          weight: 500
+        - asset: lib/fonts/sofia-pro-medium-italic.ttf
+          weight: 500
+          style: italic
+        - asset: lib/fonts/sofia-pro-semi-bold.ttf
+          weight: 600
+        - asset: lib/fonts/sofia-pro-semi-bold-italic.ttf
+          weight: 600
+          style: italic
+        - asset: lib/fonts/sofia-pro-bold.ttf
+          weight: 700
+        - asset: lib/fonts/sofia-pro-bold-italic.ttf
+          weight: 700
+          style: italic
+        - asset: lib/fonts/sofia-pro-black.ttf
+          weight: 900
+        - asset: lib/fonts/sofia-pro-black-italic.ttf
+          weight: 900
+          style: italic

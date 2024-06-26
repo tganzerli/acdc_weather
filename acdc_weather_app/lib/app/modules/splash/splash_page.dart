@@ -10,6 +10,14 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.popAndPushNamed(context, '/home');
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colors = BackColors.of(context);
     return Scaffold(
@@ -19,7 +27,7 @@ class _SplashPageState extends State<SplashPage> {
         backgroundColor: colors.darkBG,
         elevation: 0,
       ),
-      body: Center(
+      body: const Center(
         child: BackLogos.logoBG(
           width: 300,
         ),

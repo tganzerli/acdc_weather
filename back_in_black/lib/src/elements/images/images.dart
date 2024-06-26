@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
 
-import 'logos_constant.dart';
+import 'images_constant.dart';
 
-class BackLogos extends StatelessWidget {
+class BackImages extends StatelessWidget {
   final String asset;
   final double? height;
   final double? width;
 
-  const BackLogos.logo({
+  const BackImages.wind({
     super.key,
     this.height,
     this.width,
-  }) : asset = BackLogosConstant.logo;
+  }) : asset = BackImagesConstant.wind;
 
-  const BackLogos.logoBG({
+  const BackImages.arrow({
     super.key,
     this.height,
     this.width,
-  }) : asset = BackLogosConstant.logoBG;
-
-  const BackLogos.logoText({
-    super.key,
-    this.height,
-    this.width,
-  }) : asset = BackLogosConstant.logoText;
+  }) : asset = BackImagesConstant.arrow;
 
   @override
   Widget build(BuildContext context) {
