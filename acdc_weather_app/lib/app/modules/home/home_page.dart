@@ -128,9 +128,13 @@ class _HomePageState extends State<HomePage> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 5),
                                       child: GestureDetector(
-                                        onTap: () => Navigator.pushNamed(
-                                            context, '/weatherDetai',
-                                            arguments: state.data[index]),
+                                        onTap: () {
+                                          if (forecast.isNotEmpty) {
+                                            Navigator.pushNamed(
+                                                context, '/weatherDetai',
+                                                arguments: state.data[index]);
+                                          }
+                                        },
                                         child: Container(
                                           color: Colors.transparent,
                                           child: Column(
@@ -162,16 +166,21 @@ class _HomePageState extends State<HomePage> {
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        WeatherIcon(
-                                                          weather: forecast
-                                                              .first.weather,
-                                                          height: 30,
-                                                        ),
+                                                        forecast.isEmpty
+                                                            ? const SizedBox()
+                                                            : WeatherIcon(
+                                                                weather: forecast
+                                                                    .first
+                                                                    .weather,
+                                                                height: 30,
+                                                              ),
                                                         const SizedBox(
                                                           width: 5,
                                                         ),
                                                         Text(
-                                                          '${forecast.first.temperature.toInt()}˚',
+                                                          forecast.isEmpty
+                                                              ? ' - '
+                                                              : '${forecast.first.temperature.toInt()}˚',
                                                           style:
                                                               text.titleLarge,
                                                         ),
